@@ -1,5 +1,3 @@
-# THIS CODE IS CONTRIBUTED BY @MARYAM_YAZDI
-
 import socket
 import pickle
 from tabulate import tabulate
