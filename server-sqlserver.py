@@ -32,10 +32,10 @@ class Student:
 class COLORS:
     GREEN = '\033[92m'
     YELLOW = '\033[93m'
-    FAIL = '\033[91m'  # RED
+    FAIL = '\033[91m'
     PURPLE = '\033[35m'
     LIGHTBLUE = '\033[94m'
-    RESET = '\033[0m'  # RESET COLOR
+    RESET = '\033[0m'
 
 
 def display_help_text():
@@ -70,7 +70,6 @@ def average(faculty_no):
     ave_list = []
     for row in sql_result:
         ave_list.append((row[0], row[1]))
-    # db_conn.commit()
     db_conn.close()
     return ave_list
 
@@ -85,7 +84,6 @@ def sort(faculty_no):
     sorted_ave_list = []
     for row in sql_result:
         sorted_ave_list.append((row[0], row[1]))
-    # db_conn.commit()
     db_conn.close()
     return sorted_ave_list
 
@@ -126,8 +124,6 @@ faculty_id = 0
 
 
 def handle_client(conn, addr):
-    # os.system("start /wait cmd /k python client.py")
-
     print(f"{COLORS.GREEN}[NEW CONNECTION]{COLORS.RESET} {addr} connected.")
 
     global faculty_id
@@ -169,7 +165,6 @@ def handle_client(conn, addr):
                         stu_count += 1
                     print(f"{COLORS.GREEN}[INSERT DATABASE]{COLORS.RESET} {stu_count} new records inserted.")
                     send(f"ALL {stu_count} RECORDS INSERTED TO DATABASE SUCCESSFULLY.", 'ack', conn)
-            # print(f"[{addr}] {msg}")
 
     conn.close()
 
@@ -177,16 +172,10 @@ def handle_client(conn, addr):
 def start():
     server.listen(client_count)
     print(f"{COLORS.GREEN}[LISTENING]{COLORS.RESET} server is listening on {SERVER}")
-    # thread_list = [None] * client_count
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-
-        # for i in range(client_count):
-        #     thread_list[i] = threading.Thread(target=handle_client)
-        #     thread.start()
-
         print(f"\n{COLORS.GREEN}[ACTIVE CONNECTIONS]{COLORS.RESET} {threading.activeCount() - 1}")
 
 
